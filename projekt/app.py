@@ -14,10 +14,6 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/info', methods=['GET', 'POST'])
-def info():
-    return render_template('info.html')
-
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     return render_template('register.html')
@@ -25,6 +21,14 @@ def register():
 @app.route('/profile', methods=['GET', 'POST'])
 def profile():
     return render_template('profile.html')
+
+@app.route('/add_beitrag', methods=['GET', 'POST'])
+def add_beitrag():
+    return render_template('add_beitrag.html')
+
+@app.route('/add_workout', methods=['GET', 'POST'])
+def add_workout():
+    return render_template('add_workout.html')
 
 
 if __name__ == '__main__':
