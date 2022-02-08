@@ -1,0 +1,34 @@
+{% extends 'login-index.html' %}
+
+{% block cont1 %}
+<div class="input-group flex-nowrap">
+  <input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="addon-wrapping">
+</div>
+<br>
+<div class="input-group flex-nowrap">
+  <input type="email" class="form-control" placeholder="Vollständiger Name" aria-label="Vollständiger Name" aria-describedby="addon-wrapping">
+</div>
+<br>
+<div class="input-group flex-nowrap">
+  <input type="text" class="form-control" placeholder="Geburtstag: yyy-mm-dd" aria-label="Geburtsdatum" aria-describedby="addon-wrapping">
+</div>
+<br>
+<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping">@</span>
+  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+<br>
+<div class="input-group flex-nowrap">
+  <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
+</div>
+<br>
+<div class="col-12">
+  <button class="btn btn-primary" type="submit">Registrieren</button>
+</div>
+{% endblock %}
+
+{% block cont2 %}
+<div class="card-body">
+  <p>Du hast schon ein Konto? <a href="{{url_for('login')}}">Log In</a></p>
+</div>
+{% endblock %}

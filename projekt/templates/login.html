@@ -1,0 +1,23 @@
+{% extends 'login-index.html' %}
+
+
+{% block cont1 %}
+<div class="input-group flex-nowrap">
+  <span class="input-group-text" id="addon-wrapping">@</span>
+  <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+</div>
+<br>
+<div class="input-group flex-nowrap">
+  <input type="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="addon-wrapping">
+</div>
+<br>
+<div class="col-12">
+  <button class="btn btn-primary" type="submit">Log In</button>
+</div>
+{% endblock %}
+
+{% block cont2 %}
+<div class="card-body">
+  <p>Du hast kein Konto? <a href="{{url_for('register')}}">Registrieren</a></p>
+</div>
+{% endblock %}
