@@ -1,0 +1,64 @@
+{% extends 'login-index.html' %}
+
+
+{% block cont1 %}
+<form method='POST' action="">
+  {{ form.hidden_tag() }}
+
+
+  <div class="input-group">
+    <span class="input-group-text" id="addon-wrapping">@</span>
+    {% if form.username.errors %}
+      {{ form.username(class="form-control is-invalid", placeholder="Username") }}
+      <div class="invalid-feedback">
+        {% for error in form.username.errors %}
+          <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+    {{ form.username(class="form-control", placeholder="Username") }}
+    {% endif %}
+  </div>
+
+
+  <br>
+
+
+  <div class="input-group">
+    {% if form.password.errors %}
+      {{ form.password(class="form-control is-invalid", placeholder="Password") }}
+      <div class="invalid-feedback">
+        {% for error in form.password.errors %}
+          <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+    {{ form.password(class="form-control", placeholder="Password") }}
+    {% endif %}
+  </div>
+
+
+  <br>
+
+  <div class="">
+    <span>{{ form.remember.label(class="form-check.label") }}</span>
+    <span>{{ form.remember(class="form-check-input") }}</span>
+  </div>
+
+  <br>
+
+
+  <div class="col-12">
+    {{ form.submit(class="btn btn-primary") }}
+  </div>
+</form>
+{% endblock %}
+
+
+
+
+{% block cont2 %}
+<div class="card-body">
+  <p>Do not have an account? <a href="{{url_for('register')}}">Register</a></p>
+</div>
+{% endblock %}

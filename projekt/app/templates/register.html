@@ -1,0 +1,138 @@
+{% extends 'login-index.html' %}
+
+{% block cont1 %}
+<form method="POST" action="">
+  {{ form.hidden_tag() }}
+
+  <!--Checks if form has any errors and if so prints them out so the user can see what he did do wrong flex-nowrap-->
+
+  <!--Email-->
+  <div class="input-group">
+    {% if form.email.errors %}
+      {{ form.email(class="form-control is-invalid", placeholder="Email") }}
+      <br>
+      <div class="invalid-feedback">
+        {% for error in form.email.errors %}
+          <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+    {{ form.email(class="form-control", placeholder="Email") }}
+    {% endif %}
+  </div>
+
+
+  <br>
+
+  <!--name-->
+  <div class="input-group">
+    {% if form.name.errors %}
+      {{ form.name(class="form-control is-invalid", placeholder="Full name") }}
+      <div class="invalid-feedback">
+        {% for error in form.username.errors %}
+          <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+      {{ form.name(class="form-control", placeholder="Full name") }}
+    {% endif %}
+  </div>
+
+
+  <br>
+
+  <!--aircraft_type-->
+  <div class="input-group">
+    {% if form.aircraft_type.errors %}
+      {{ form.aircraft_type(class="form-control is-invalid", placeholder="What type of aircraft do you fly?") }}
+      <div class="invalid-feedback">
+        {% for error in form.aircraft_type.errors %}
+          <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+      {{ form.aircraft_type(class="form-control", placeholder="What type of aircraft do you fly?") }}
+    {% endif %}
+  </div>
+
+
+  <br>
+
+  <!--home_airport-->
+  <div class="input-group">
+    {% if form.home_airport.errors %}
+      {{ form.home_airport(class="form-control is-invalid", placeholder="Your home airport: ICAO or IATA") }}
+      <div class="invalid-feedback">
+        {% for error in form.home_airport.errors %}
+          <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+      {{ form.home_airport(class="form-control", placeholder="Your home airport: ICAO or IATA") }}
+    {% endif %}
+  </div>
+
+
+  <br>
+
+  <!--username-->
+  <div class="input-group">
+    <span class="input-group-text" id="addon-wrapping">@</span>
+    {% if form.username.errors %}
+      {{ form.username(class="form-control is-invalid", placeholder="Username") }}
+      <div class="invalid-feedback">
+        {% for error in form.username.errors %}
+          <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+    {{ form.username(class="form-control", placeholder="Username") }}
+    {% endif %}
+  </div>
+
+
+  <br>
+
+  <!--password-->
+  <div class="input-group">
+    {% if form.password.errors %}
+      {{ form.password(class="form-control is-invalid", placeholder="Password") }}
+      <div class="invalid-feedback">
+        {% for error in form.password.errors %}
+          <span>{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+    {{ form.password(class="form-control", placeholder="Password") }}
+    {% endif %}
+  </div>
+
+
+  <br>
+
+
+  <div class="col-12">
+    {{ form.submit(class="btn btn-primary") }}
+  </div>
+
+
+</form>
+{% endblock %}
+
+
+
+
+{% block cont2 %}
+<div class="card-body">
+  <p>Already have an account? <a href="{{url_for('login')}}">Log In</a></p>
+</div>
+{% endblock %}
+
+
+
+
+
+<!--
+<input type="text" class="form-control" placeholder="Email" aria-label="Email" aria-describedby="addon-wrapping">
+<button class="btn btn-primary" type="submit">Registrieren</button>
+-->

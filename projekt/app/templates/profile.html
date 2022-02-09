@@ -1,0 +1,31 @@
+{% extends 'home-index.html' %}
+
+{% block content1 %}
+<br><br>
+<div class='container d-flex justify-content-center'>
+  <div class='card bg-dark text-white' style='width: 50rem'>
+    <div class="card-body">
+      <div class="row">
+        <div class='col-6 col-md-2'>
+          <img height="80" src='{{ image_file }}'  alt="" style="margin-left: 20px; margin-top: 20px; margin-right: 20px;">
+        </div>
+        <div class='col-md-8'>
+          <div style="margin-left: {{ picture_x }}px; margin-top: 20px;">
+            <h5 class='card-title'> @{{current_user.username}} </h5>
+            <h6 class='card-subtitle mb-2 text-muted'>{{current_user.home_airport}}</h6>
+            <h6 class='card-subtitle mb-2 text-muted'>{{current_user.aircraft_type}}</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="card-body" style="margin-left: 20px">
+        <h5>{{current_user.name}}</h5>
+        <p class='card-text'>{{current_user.biography}}
+      </div>
+      <div class='card-body'>
+        <a class='text-muted' href='{{url_for('edit_profile')}}' style="margin-left: 20px; margin-bottom: 20px">Edit Profile</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock%}

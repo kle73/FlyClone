@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>FitClone</title>
+    <title>FlyClone</title>
     <!--Wichtig den link zu css files wie unten aufschrieben damit flask das erkennt-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles.css') }}">
     <!-- CSS only -->
@@ -17,8 +17,19 @@
 
     <div class="container d-flex justify-content-center">
       <div class="card text-center text-white bg-dark mb-3 shadow" style="width: 18rem;">
-        <img src="static/title.jpg" class="card-img-top" alt="FitClone">
+        <img src="static/title.PNG" class="card-img-top" alt="FitClone">
         <div class="card-body">
+
+          {% with messages = get_flashed_messages(with_categories=True) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith%}
+
 
           {% block cont1 %}
 

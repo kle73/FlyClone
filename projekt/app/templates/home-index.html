@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Fittness Clone</title>
+    <title>FlyClone</title>
     <!--Wichtig den link zu css files wie unten aufschrieben damit flask das erkennt-->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles.css') }}">
     <!-- CSS only -->
@@ -17,28 +17,41 @@
                                  px-3 nachlesen bei Bootstrap spacing -->
 
       <div class="container d-flex justify-content-evenly">
-        <a class="navbar-brand px-3" href="{{url_for('home')}}"><img height="30" src="/static/title.jpg"  alt="FitClone"></a>
+        <a class="navbar-brand px-3" href="{{url_for('home')}}"><img height="30" src="/static/title.PNG"  alt="FitClone"></a>
 
         <div class="d-flex justify-content-center">
           <form class="d-flex">
-            <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control" type="search" placeholder="Search" style="height: 30px; margin-top:4%" >
             <!--<button class="btn btn-outline-success" type="submit">Search</button>-->
           </form>
 
-          <ul class="nav px-3">
+          <ul class="nav px-1">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{url_for('profile')}}"><img width="30" src="/static/profile.jpg"  alt="Profil"></a>
+              <a class="nav-link active" aria-current="page" href="{{url_for('profile')}}"><img width="30" src="/static/profile.PNG"  alt="Profil"></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('add_beitrag')}}"><img width="30" src="/static/plus.jpg"  alt="Neuer Beitrag"></a>
+              <a class="nav-link" href="{{url_for('add_beitrag')}}"><img width="30" src="/static/plus.PNG"  alt="Neuer Beitrag"></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{url_for('add_workout')}}"><img width="30" src="/static/weight.jpg"  alt="Neues Workout"></a>
+              <a class="nav-link" href="{{url_for('add_route')}}"><img width="30" src="/static/route.PNG"  alt="Neues Workout"></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{url_for('logout')}}"><img width="30" src="/static/logout.PNG"  alt="Logout"></a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
+
+    {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith%}
 
     {% block content1 %}
 
