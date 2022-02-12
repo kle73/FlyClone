@@ -4,9 +4,10 @@
 
 <br><br>
 
-
+  <div class="col-7" id="main">
     {% for post in posts %}
-    <div class="d-flex justify-content-center">
+    <br><br>
+    <div class="d-flex justify-content-end">
       <div class="card text-white bg-dark mb-3 shadow" style="width: 36rem;">
           <div class="card-body">
             {% with pic='/static/profile_pictures/' + post.author.image_file %}
@@ -32,10 +33,12 @@
                     {% if post.waypoints %}
                     <div class="d-flex justify-content-start"><small class="smallsize">ORIGNIN</small></div>
                     <b class="d-flex justify-content-start">{{post.departure}}</b>
-                    {% for point in points%}
-                      ---- {{point}}
-                    {% endfor %}
-                      ----
+                    <div class="d-flex justify-content-center text-center">
+                      {% for point in points%}
+                        --- {{point}}
+                      {% endfor %}
+                      ---
+                    </div>
                     <b class="d-flex justify-content-end">{{post.destination}}</b>
                     <div class="d-flex justify-content-end"><small class="smallsize">DEST</small></div>
                     {% else %}
@@ -50,7 +53,9 @@
           {% endif %}
 
         <div class="card-body">
-          <button type="button" class="btn btn-outline-danger d-flex justify-content-start mb-4">Like! ({{post.number_of_likes}})</button>
+          <form method='POST'>
+            <button type="submit" class="btn btn-outline-danger d-flex justify-content-start mb-4" name="Like" value={{post.id}}>Like! ({{post.number_of_likes}})</button>
+          </form>
           <span class="d-flex justify-content-start"><b>@{{post.author.username}}:</b></span>
           <span class="d-flex justify-content-start">{{post.description}}</span>
           <span class="d-flex justify-content-start">
@@ -59,7 +64,6 @@
               <button name='CC' value={{post.id}} type="submit" class="astext">
                   View all comments
                 </button>
-              </input>
             </form>
 
           </span>
@@ -76,7 +80,27 @@
       </div>
     </div>
   {% endfor %}
+</div>
 
 
+{% endblock %}
 
+{% block content3 %}
+<div class="col order-2" id="sticky-sidebar">
+  <div class="sticky-top">
+    <br><br>
+      <div class="d-flex justify-content-start">
+        <div class=''>
+          <img height="80" src='{{ image_file }}'  alt="" style="margin-left: 5px; margin-top: 20px; margin-right: 20px;">
+        </div>
+        <div class=''>
+          <div style="margin-left: 20%; margin-top: 20px;">
+            <h5 class='card-title'> @{{current_user.username}} </h5>
+            <h6 class='card-subtitle mb-2 text-muted'>{{current_user.home_airport}}</h6>
+            <h6 class='card-subtitle mb-2 text-muted'>{{current_user.aircraft_type}}</h6>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
 {% endblock %}

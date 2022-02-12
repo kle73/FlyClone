@@ -104,11 +104,16 @@ def save_post_picture(form_picture):
 @app.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
+    #for the sidebar
+    image_file = url_for('static', filename='profile_pictures/' + current_user.image_file)
+
+    #for the main part
     posts = Post.query.all()
     posts.reverse()
     comments = Comment.query.all()
 
     if request.method == 'POST':
+        #functionality for the Comment Form
         if 'comment' in request.form:
             post_id = request.form['comment']
             content = request.form['content']
@@ -117,15 +122,21 @@ def home():
                                   post_id=post_id)
             db.session.add(new_comment)
             db.session.commit()
-            flash('comment')
             return redirect(url_for('home'))
+        #functionality for the Like Button
+        elif "Like" in request.form:
+            post_id = request.form["Like"]
+            post = Post.query.filter_by(id=post_id).first()
+            post.number_of_likes += 1
+            db.session.commit()
+        #functionality for the 'View all comments' Button
         elif 'CC' in request.form:
             post_id = request.form['CC']
             comments = Comment.query.filter_by(post_id=post_id)
             return render_template('comments.html', comments=comments)
 
 
-    return render_template('home.html', posts=posts)
+    return render_template('home.html', posts=posts, image_file=image_file)
 
 
 
@@ -186,13 +197,22 @@ def add_route():
     form = PostForm()
 
     if form.validate_on_submit():
-        picture_file = save_post_picture(form.picture.data)
-        new_post = Post(description=form.description.data, image=picture_file,
-                            departure_date=form.departure_date.data,
-                            departure=form.departure.data, plane=form.plane.data,
-                            author=current_user, waypoints=form.waypoints.data,
-                            destination=form.destination.data,
-                            landing_date=form.landing_date.data)
+        if form.picture.data:
+            picture_file = save_post_picture(form.picture.data)
+            new_post = Post(description=form.description.data, image=picture_file,
+                                departure_date=form.departure_date.data,
+                                departure=form.departure.data, plane=form.plane.data,
+                                author=current_user, waypoints=form.waypoints.data,
+                                destination=form.destination.data,
+                                landing_date=form.landing_date.data)
+        else:
+            new_post = Post(description=form.description.data,
+                    departure_date=form.departure_date.data,
+                    departure=form.departure.data, plane=form.plane.data,
+                    author=current_user, waypoints=form.waypoints.data,
+                    destination=form.destination.data,
+                    landing_date=form.landing_date.data)
+
         db.session.add(new_post)
         db.session.commit()
 
@@ -201,12 +221,3 @@ def add_route():
 
 
     return render_template('add_route.html', form=form)
-
-
-
-'''
-@app.route('/comments', methods=['GET', 'POST'])
-@login_required
-def comments():
-    comments = Comment.query.filter_by(post_id=post_id)
-    return render_template('comments.html', comments=comments)'''

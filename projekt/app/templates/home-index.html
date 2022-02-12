@@ -46,24 +46,31 @@
     {% with messages = get_flashed_messages(with_categories=True) %}
       {% if messages %}
         {% for category, message in messages %}
-          <div class="alert alert-{{ category }}">
+          <div class="alert alert-{{ category }} d-flex justify-content-center">
             {{ message }}
           </div>
         {% endfor %}
       {% endif %}
     {% endwith%}
 
-    {% block content1 %}
 
-    {% endblock %}
+    <div class="container">
+      <div class="row py-3">
 
-    {% block content2 %}
+              {% block content3 %}
 
-    {% endblock %}
+              {% endblock %}
 
-    {% block content3 %}
+              {% block content1 %}
 
-    {% endblock %}
+              {% endblock %}
+
+              {% block content2 %}
+
+              {% endblock %}
+
+      </div>
+    </div>
 
   </body>
 </html>

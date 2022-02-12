@@ -6,7 +6,7 @@
   <div class='card bg-dark text-white' style='width: 50rem'>
     <div class="card-body">
       <div class="row">
-        <div class='col-6 col-md-2'>
+        <div class='col-4 col-md-2'>
           <img height="80" src='{{ image_file }}'  alt="" style="margin-left: 20px; margin-top: 20px; margin-right: 20px;">
         </div>
         <div class='col-md-8'>
@@ -42,7 +42,7 @@
               <div class="card-body">
                 <div style="margin-top: 5px;">
                   <h6 class='card-subtitle mb-2 text-muted'>{{post.plane}}</h6>
-                  <p class='card-text mb-2 text-muted'>{{post.date_posted}}</h6>
+                  <p class='card-text mb-2 text-muted'>{{post.date_posted}}</p>
                 </div>
               </div>
               {% if post.image %}
@@ -64,33 +64,41 @@
             </div>
           {% endwith %}
 
+          {% if n == (posts| length) - 1 %}
 
-          {% with post = posts[n+1] %}
-          <div class="card bg-dark text-white shadow col-4" style='width: 20rem; margin-bottom: 20px; margin-right:20px;'>
-            <div class="card-body">
-              <div style="margin-top: 5px;">
-                <h6 class='card-subtitle mb-2 text-muted'>{{post.plane}}</h6>
-                <p class='card-text mb-2 text-muted'>{{post.date_posted}}</h6>
+            <div class="col-4" style='width: 20rem; margin-bottom: 20px; margin-right:20px;'>
+            </div>
+
+          {% else %}
+
+            {% with post = posts[n+1] %}
+            <div class="card bg-dark text-white shadow col-4" style='width: 20rem; margin-bottom: 20px; margin-right:20px;'>
+              <div class="card-body">
+                <div style="margin-top: 5px;">
+                  <h6 class='card-subtitle mb-2 text-muted'>{{post.plane}}</h6>
+                  <p class='card-text mb-2 text-muted'>{{post.date_posted}}</p>
+                </div>
+              </div>
+              {% if post.image %}
+                {% with pic='/static/post_pictures/' + post.image %}
+                  <img class="card-img-top" src={{pic}}>
+                {% endwith %}
+              {% endif %}
+              <div class="card-body">
+                {% with points=post.waypoints.split(';') %}
+                <div class='justify-content-center'>
+                  <b>{{post.departure}}</b>
+                  {% for point in points %}
+                  ----{{point}}
+                  {% endfor %}
+                  <b>{{post.destination}}</b>
+                </div>
+                {% endwith %}
               </div>
             </div>
-            {% if post.image %}
-              {% with pic='/static/post_pictures/' + post.image %}
-                <img class="card-img-top" src={{pic}}>
-              {% endwith %}
-            {% endif %}
-            <div class="card-body">
-              {% with points=post.waypoints.split(';') %}
-              <div class='justify-content-center'>
-                <b>{{post.departure}}</b>
-                {% for point in points %}
-                ----{{point}}
-                {% endfor %}
-                <b>{{post.destination}}</b>
-              </div>
-              {% endwith %}
-            </div>
-          </div>
-          {% endwith %}
+            {% endwith %}
+
+          {% endif %}
 
         </div>
       </div>
