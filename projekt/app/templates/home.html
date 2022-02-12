@@ -87,20 +87,20 @@
 
 {% block content3 %}
 <div class="col order-2" id="sticky-sidebar">
-  <div class="sticky-top">
+  <div class="position-fixed">
     <br><br>
+    <div class="card bg-dark text-white shadow" style="width: 25rem;">
       <div class="d-flex justify-content-start">
         <div class=''>
-          <img height="80" src='{{ image_file }}'  alt="" style="margin-left: 5px; margin-top: 20px; margin-right: 20px;">
+          <img height="80" src='{{ image_file }}'  alt="" style="margin-left: 15px; margin-top: 20px; margin-right: 20px;">
         </div>
-        <div class=''>
-          <div style="margin-left: 20%; margin-top: 20px;">
+          <div style="margin-bottom: 20px; margin-top: 20px; width: 15rem;">
             <h5 class='card-title'> @{{current_user.username}} </h5>
             <h6 class='card-subtitle mb-2 text-muted'>{{current_user.home_airport}}</h6>
             <h6 class='card-subtitle mb-2 text-muted'>{{current_user.aircraft_type}}</h6>
           </div>
-        </div>
       </div>
+    </div>
   </div>
 </div>
 {% endblock %}
