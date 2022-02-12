@@ -1,27 +1,156 @@
 {% extends 'home-index.html' %}
 
 {%block content1%}
+<br><br>
+<div class='container d-flex justify-content-center'>
+  <div class='card text-center bg-dark text-white shadow' style='width: 55rem'>
+    <div class="card-body">
 
-<div class="d-flex justify-content-center">
-  <span>
-    <ul class="list-group">
-      <li class="list-group-item"><b class="d-flex justify-content-start">Übung</b><b class="d-flex justify-content-end">Sätze</b></li>
-      <li class="list-group-item"><input type="text" class="form-control" placeholder="First name" aria-label="First name"></li>
-      <li class="list-group-item"><input type="text" class="form-control" placeholder="First name" aria-label="First name"></li>
-      <li class="list-group-item"><input type="text" class="form-control" placeholder="First name" aria-label="First name"></li>
-      <li class="list-group-item"><input type="text" class="form-control" placeholder="First name" aria-label="First name"></li>
-    </ul>
+      <form method="POST" action="" enctype="multipart/form-data">
+        <div style="margin: 20px;">
+          {{ form.hidden_tag() }}
 
-  </span>
-  <span>
-    <ul class="list-group">
-      <li class="list-group-item"><b>Sätze</b></li>
-      <li class="list-group-item">A second item</li>
-      <li class="list-group-item">A third item</li>
-      <li class="list-group-item">A fourth item</li>
-      <li class="list-group-item">And a fifth one</li>
-    </ul>
+          <!--Checks if form has any errors and if so prints them out so the user can see what he did do wrong flex-nowrap-->
 
-  </span>
+          <!--picture-->
+          <div class="form-group">
+            {{ form.picture.label()}}
+            <br>
+            {{ form.picture(class="form-control-file") }}
+            <br>
+            {% if form.picture.errors %}
+              {% for error in form.picture.errors %}
+                <span class="text-danger">{{ error }}</span><br>
+              {% endfor %}
+            {% endif %}
+          </div>
+
+
+          <div class="row">
+            <!--Departure-->
+            <div class="form-group col">
+              {{ form.departure.label(class="form-control-label")}}
+              {% if form.departure.errors %}
+                {{ form.departure(class="form-control is-invalid", placeholder="ICAO / IATA") }}
+                <br>
+                <div class="invalid-feedback">
+                  {% for departure in form.departure.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+              {{ form.departure(class="form-control", placeholder="ICAO / IATA") }}
+              {% endif %}
+            </div>
+
+            <!--Waypoints-->
+            <div class="form-group col-7">
+              {{ form.waypoints.label(class="form-control-label")}}
+              {% if form.waypoints.errors %}
+                {{ form.waypoints(class="form-control is-invalid", placeholder="waypoint1;waypoint2;waypoint3;waypoint4;...") }}
+                <div class="invalid-feedback">
+                  {% for error in form.waypoints.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.waypoints(class="form-control", placeholder="waypoint1;waypoint2;waypoint3;waypoint4;...") }}
+              {% endif %}
+          </div>
+
+          <!--destination-->
+          <div class="form-group col">
+            {{ form.destination.label(class="form-control-label")}}
+            {% if form.destination.errors %}
+              {{ form.destination(class="form-control is-invalid", placeholder="ICAO / IATA") }}
+              <div class="invalid-feedback">
+                {% for error in form.destination.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ form.destination(class="form-control", placeholder="ICAO / IATA") }}
+            {% endif %}
+          </div>
+        </div>
+
+          <br>
+
+          <!--plane-->
+          <div class="form-group" style="margin-left: 173px; margin-right: 173px;">
+            {{ form.plane.label(class="form-control-label")}}
+            {% if form.plane.errors %}
+              {{ form.plane(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.plane.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+              {{ form.plane(class="form-control") }}
+            {% endif %}
+          </div>
+
+          <br>
+
+          <!--departure_date-->
+          <div class="form-group" style="margin-left: 173px; margin-right: 173px;">
+            {{ form.departure_date.label(class="form-control-label")}}
+            {% if form.departure_date.errors %}
+              {{ form.departure_date(class="form-control is-invalid", placeholder="yyyy-mm-dd, HH:MM") }}
+              <div class="invalid-feedback">
+                {% for error in form.departure_date.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+            {{ form.departure_date(class="form-control", placeholder="yyyy-mm-dd, HH:MM") }}
+            {% endif %}
+          </div>
+
+          <br>
+
+          <!--landing_date-->
+          <div class="form-group" style="margin-left: 173px; margin-right: 173px;">
+            {{ form.landing_date.label(class="form-control-label")}}
+            {% if form.landing_date.errors %}
+              {{ form.landing_date(class="form-control is-invalid", placeholder="yyyy-mm-dd, HH:MM") }}
+              <div class="invalid-feedback">
+                {% for error in form.landing_date.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+            {{ form.landing_date(class="form-control", placeholder="yyyy-mm-dd, HH:MM") }}
+            {% endif %}
+          </div>
+
+          <br>
+
+          <!--description-->
+          <div class="form-group" style="margin-left: 173px; margin-right: 173px;">
+            {{ form.description.label(class="form-control-label")}}
+            {% if form.description.errors %}
+              {{ form.description(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.description.errors %}
+                  <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+            {% else %}
+            {{ form.description(class="form-control") }}
+            {% endif %}
+          </div>
+
+          <br>
+
+          <div class="col-12">
+            {{ form.upload(class="btn btn-primary") }}
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
 </div>
 {%endblock%}

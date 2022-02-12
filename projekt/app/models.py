@@ -18,39 +18,55 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(120), nullable=False)
     aircraft_type = db.Column(db.String(120), nullable=False)
     home_airport = db.Column(db.String(8), nullable=False)
-
+    destinations = db.Column(db.String(), default=f'{home_airport};')
 
     image_file = db.Column(db.String(20), nullable=False, default='profile.PNG')
     biography = db.Column(db.String(1500))
 
-    image_posts = db.relationship('ImagePost', backref='author', lazy=True, uselist=True)
-    route_posts = db.relationship('RoutePost', backref='author', lazy=True, uselist=True)
+    route_posts = db.relationship('Post', backref='author', lazy=True, uselist=True)
+    comments = db.relationship('Comment', backref='author', lazy=True, uselist=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"
 
-class ImagePost(db.Model):
-    __tablename__ = 'image_post'
+
+
+
+
+class Post(db.Model):
+    __tablename__ = 'post'
     id = db.Column(db.Integer, primary_key=True)
-    comment = db.Column(db.String(1000))
-    image = db.Column(db.String(20), nullable=False)
+    image = db.Column(db.String(20))
+    description = db.Column(db.String(1000))
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    departure = db.Column(db.String(8))
+    waypoints = db.Column(db.String(1000))
+    destination = db.Column(db.String(8))
+    plane = db.Column(db.String(120))
+    departure_date = db.Column(db.String(120))
+    landing_date = db.Column(db.String(120))
     number_of_likes = db.Column(db.Integer, nullable=False, default=0)
 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __repr__(self):
-        return f"ImagePost('{self.image}', '{self.comment}', {self.date_posted})"
+    comments = db.relationship('Comment', backref='post', lazy=True, uselist=True)
 
-class RoutePost(db.Model):
-    __tablename__ = 'route_post'
+    def __repr__(self):
+        return f"Post('{self.user_id}({self.departure}'| '{self.waypoints}'| {self.destination}))"
+
+
+class Comment(db.Model):
+    __tablename__ = 'comment'
     id = db.Column(db.Integer, primary_key=True)
-    comment = db.Column(db.String(1000))
+    content = db.Column(db.String(1000), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    route = db.Column(db.String(1000), nullable=False)
-    number_of_likes = db.Column(db.Integer, nullable=False, default=0)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable = False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable = False)
 
-    def __repr__(self):
-        return f"RoutePost('{self.route}', '{self.comment}', {self.date_posted})"
+
+
+
+
+
+db.create_all()

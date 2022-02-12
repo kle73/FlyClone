@@ -1,6 +1,5 @@
 .bodyclass {
     background-color: #18191A;
-    /*text-align: center;*/
     color: white;
 }
 
@@ -11,4 +10,20 @@
   padding:0;
   cursor:pointer;
   color: grey;
+}
+
+.FMC {
+  background-color: black;
+  border-radius:5px;
+  border-style: inset;
+  border-color: #6A6666;
+}
+
+.FMC_inner {
+  margin:10px;
+  color: green;
+}
+
+.smallsize {
+  font-size: x-small;
 }

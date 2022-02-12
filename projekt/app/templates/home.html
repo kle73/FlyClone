@@ -3,66 +3,80 @@
 {% block content1 %}
 
 <br><br>
-<div class="d-flex justify-content-center">
-  <div class="card text-white bg-dark mb-3 shadow" style="width: 36rem;">
-    <div class="card-body">
-      <span class="d-flex justify-content-start"><h5>{Profilbild}</h5><h5>{Username}</h5></span>
+
+
+    {% for post in posts %}
+    <div class="d-flex justify-content-center">
+      <div class="card text-white bg-dark mb-3 shadow" style="width: 36rem;">
+          <div class="card-body">
+            {% with pic='/static/profile_pictures/' + post.author.image_file %}
+              <span class="d-flex justify-content-start"><img height='30' src={{pic}} style="margin-right: 10px;"><h5>@{{post.author.username}}</h5></span>
+            {% endwith %}
+            <div style="margin-top: 10px;">
+              <h6 class='card-subtitle mb-2 text-muted'>{{post.plane}}</h6>
+            </div>
+          </div>
+
+          {% if post.image %}
+            {% with pic='/static/post_pictures/' + post.image %}
+              <img class="card-img-top" src={{pic}}>
+            {% endwith %}
+          {% endif %}
+
+          {% if post.departure and post.destination %}
+            {% with points=post.waypoints.split(';') %}
+              <div class='card-body d-flex justify-content-center'>
+                <div class="FMC shadow">
+                  <div class="FMC_inner">
+                    <div class="d-flex justify-content-center"><small>FMC FPLAN</small></div>
+                    {% if post.waypoints %}
+                    <div class="d-flex justify-content-start"><small class="smallsize">ORIGNIN</small></div>
+                    <b class="d-flex justify-content-start">{{post.departure}}</b>
+                    {% for point in points%}
+                      ---- {{point}}
+                    {% endfor %}
+                      ----
+                    <b class="d-flex justify-content-end">{{post.destination}}</b>
+                    <div class="d-flex justify-content-end"><small class="smallsize">DEST</small></div>
+                    {% else %}
+                    <div class="d-flex justify-content-start"><small class="smallsize">ORIGNIN</small></div>
+                    <b class="d-flex justify-content-center">{{post.departure}} ----------------------------------- {{post.destination}}</b>
+                    <div class="d-flex justify-content-end"><small class="smallsize">DEST</small></div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            {% endwith %}
+          {% endif %}
+
+        <div class="card-body">
+          <button type="button" class="btn btn-outline-danger d-flex justify-content-start mb-4">Like! ({{post.number_of_likes}})</button>
+          <span class="d-flex justify-content-start"><b>@{{post.author.username}}:</b></span>
+          <span class="d-flex justify-content-start">{{post.description}}</span>
+          <span class="d-flex justify-content-start">
+
+            <form action="" method='POST'>
+              <button name='CC' value={{post.id}} type="submit" class="astext">
+                  View all comments
+                </button>
+              </input>
+            </form>
+
+          </span>
+
+        </div>
+        <div class="card-body">
+          <form class="" method="POST">
+            <div class="input-group mb-3">
+                <input class="form-control" type="text" name="content" placeholder="Write a comment..." style="background-color: #18191A; color: white;">
+                <button class="btn btn-outline-light" type="submit" name='comment' value={{post.id}}>Comment</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-    <img src="https://media.istockphoto.com/photos/passenger-airplane-flying-above-clouds-during-sunset-picture-id155439315?b=1&k=20&m=155439315&s=170667a&w=0&h=N2BzlH2GYabhWN0LXZTqTkVODuTb8qDAESQYCPzIig8=" class="card-img-top" alt="...">
-    <div class="card-body">
-      <button type="button" class="btn btn-outline-danger d-flex justify-content-start mb-4">Like!</button>
-      <span class="d-flex justify-content-start"><b>{User}:</b></span>
-      <span class="d-flex justify-content-start">{Das ist eine lange asdvadjvladvblasdhvajsdhhaljsdhvhjlajsdhvhjlasjdhvlj jsdvhljshvv sdjjd suHE  ruh   wpiur }</span>
-      <span class="d-flex justify-content-start"><button class="astext"><small class="text-muted">Alle Kommentare ansehen</small></button></span>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item text-white bg-dark d-flex justify-content-start">
-        <input class="form-control" id="kommi" type="text" placeholder="Kommentieren..." aria-label="Kommentieren">
-      </li>
-    </ul>
-  </div>
-</div>
-<br><br>
-<div class="d-flex justify-content-center">
-  <div class="card text-white bg-dark mb-3 shadow" style="width: 36rem;">
-    <div class="card-body">
-      <span class="d-flex justify-content-start"><h5>{Profilbild}</h5><h5>{Username}</h5></span>
-    </div>
-    <img src="https://images.unsplash.com/flagged/photo-1579750481098-8b3a62c9b85d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGF2aWF0aW9ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
-    <div class="card-body">
-      <button type="button" class="btn btn-outline-danger d-flex justify-content-start mb-4">Like!</button>
-      <span class="d-flex justify-content-start"><b>{User}:</b></span>
-      <span class="d-flex justify-content-start">{Das ist eine lange asdvadjvladvblasdhvajsdhhaljsdhvhjlajsdhvhjlasjdhvlj jsdvhljshvv sdjjd suHE  ruh   wpiur }</span>
-      <span class="d-flex justify-content-start"><button class="astext"><small>Alle Kommentare ansehen</small></button></span>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item text-white bg-dark d-flex justify-content-start">
-        <input class="form-control" id="kommi" type="text" placeholder="Kommentieren..." aria-label="Kommentieren">
-      </li>
-    </ul>
-  </div>
-</div>
-<br><br>
-<div class="d-flex justify-content-center">
-  <div class="card text-white bg-dark mb-3 shadow" style="width: 36rem;">
-    <div class="card-body">
-      <span class="d-flex justify-content-start"><h5>{Profilbild}</h5><h5>{Username}</h5></span>
-    </div>
-    <img src="https://images.unsplash.com/photo-1494264274944-1ba7d9b73135?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGF2aWF0aW9ufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60" class="card-img-top" alt="...">
-    <div class="card-body">
-      <button type="button" class="btn btn-outline-danger d-flex justify-content-start mb-4">Like!</button>
-      <span class="d-flex justify-content-start"><b>{User}:</b></span>
-      <span class="d-flex justify-content-start">{Das ist eine lange asdvadjvladvblasdhvajsdhhaljsdhvhjlajsdhvhjlasjdhvlj jsdvhljshvv sdjjd suHE  ruh   wpiur }</span>
-      <span class="d-flex justify-content-start"><button class="astext"><small>Alle Kommentare ansehen</small></button></span>
-    </div>
-    <ul class="list-group list-group-flush">
-      <li class="list-group-item text-white bg-dark d-flex justify-content-start">
-        <input class="form-control" id="kommi" type="text" placeholder="Kommentieren..." aria-label="Kommentieren">
-      </li>
-    </ul>
-  </div>
-</div>
+  {% endfor %}
 
 
 
-{% endblock%}
+{% endblock %}

@@ -6,7 +6,7 @@ from wtforms.validators import DataRequired, Length, Email, ValidationError
 from app.models import User # für die validate_username funktion
 
 
-
+#Form zum Registrieren
 class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     name = StringField('Name', validators=[DataRequired()])
@@ -34,7 +34,7 @@ class RegistrationForm(FlaskForm):
 
 
 
-
+#Form zum Einloggen
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=4, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
@@ -42,7 +42,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Log In')
 
 
-
+#Form zum ändern vom Profil
 class EditProfileForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     name = StringField('Name', validators=[DataRequired()])
@@ -64,3 +64,17 @@ class EditProfileForm(FlaskForm):
             email = User.query.filter_by(email=email.data).first()
             if email:
                 raise ValidationError('Email already taken please choose a different one!')
+
+
+
+#Form für das Hochladen von RoutePosts
+class PostForm(FlaskForm):
+    picture = FileField('Your picture (optional): ', validators=[FileAllowed(['jpg', 'png'])])
+    departure = StringField('Departure Airport', validators=[Length(max=4)])
+    waypoints = StringField("WayPoints seperated by ';'")
+    destination = StringField('Destination Airport', validators=[Length(max=4)])
+    departure_date = StringField('When was the departure?', validators=[Length(max=120)])
+    landing_date = StringField('When was the landing?', validators=[Length(max=120)])
+    plane = StringField('What plane did you fly?', validators=[Length(max=120)])
+    description = TextAreaField('Description', validators=[Length(max=1000)])
+    upload = SubmitField('Post')

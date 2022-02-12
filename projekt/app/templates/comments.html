@@ -1,0 +1,20 @@
+{% extends 'home-index.html'%}
+
+{% block content1 %}
+
+<br><br>
+<div class='container d-flex justify-content-center'>
+  <div class='text-start FMC mb-3 shadow' style='width: 50rem'>
+    <div class="FMC_inner">
+      {% for comment in comments %}
+
+        <h5 class="text-muted card-subtitle">@{{ comment.author.username }}:</h5>
+        <p class"card-text"> {{comment.content}} </p>
+        <br>
+
+        {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
