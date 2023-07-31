@@ -1,5 +1,5 @@
 from datetime import datetime
-from app import db, login_manager
+from app import app, db, login_manager
 from flask_login import UserMixin
 
 #ACHTUNG: Dieses modul erwartet, das in der User-Klasse genau 4 Sachen existieren:
@@ -65,8 +65,7 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable = False)
 
 
+with app.app_context():
+    db.create_all()
 
 
-
-
-db.create_all()
